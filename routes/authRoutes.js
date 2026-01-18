@@ -1,20 +1,20 @@
 // const express = require('express');
-// const { register, login } = require('../controllers/authController');
+// const { register, login, verifyEmail } = require('../controllers/authController');
 // const router = express.Router();
 
 // router.post('/register', register);
 // router.post('/login', login);
+// router.get('/verify-email/:token', verifyEmail);
 
 // module.exports = router;
 
 
-
 const express = require('express');
-const { register, login, verifyEmail } = require('../controllers/authController');
+const { register, login } = require('../controllers/authController');
 const router = express.Router();
 
-router.post('/register', register);
-router.post('/login', login);
-router.get('/verify-email/:token', verifyEmail);
+// Routes
+router.post('/register', register);  
+router.post('/login', login);      
 
 module.exports = router;

@@ -31,7 +31,7 @@ const employeeSchema = new mongoose.Schema(
       trim: true
     },
     
-    // ✅ Sprint 5: Shift assignment
+    //  Sprint 5: Shift assignment
     shift: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Shift',

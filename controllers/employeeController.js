@@ -2,9 +2,8 @@ const Employee = require('../models/Employee');
 const User = require('../models/User');
 const LeaveRequest = require('../models/LeaveRequest');
 
-/**
- * Get logged-in employee profile
- */
+
+//  Get logged-in employee profile
 exports.getMyProfile = async (req, res) => {
   try {
     const employee = await Employee.findOne({ user: req.user.id }).populate(
@@ -22,9 +21,9 @@ exports.getMyProfile = async (req, res) => {
   }
 };
 
-/**
- * Update logged-in employee profile
- */
+
+//  Update logged-in employee profile
+ 
 exports.updateMyProfile = async (req, res) => {
   try {
     const employee = await Employee.findOneAndUpdate(
@@ -43,9 +42,9 @@ exports.updateMyProfile = async (req, res) => {
   }
 };
 
-/**
- * Admin / Manager: Get all employees
- */
+
+  // Admin / Manager: Get all employees
+
 exports.getAllEmployees = async (req, res) => {
   try {
     const employees = await Employee.find().populate(
@@ -59,9 +58,9 @@ exports.getAllEmployees = async (req, res) => {
   }
 };
 
-/**
- * Admin / Manager: Get single employee by ID
- */
+
+  // Admin / Manager: Get single employee by ID
+
 exports.getEmployeeById = async (req, res) => {
   try {
     // Use findById safely
@@ -80,9 +79,8 @@ exports.getEmployeeById = async (req, res) => {
   }
 };
 
-/**
- * Manager: Get leave requests of a single employee
- */
+
+//  Manager: Get leave requests of a single employee
 exports.getEmployeeLeaves = async (req, res) => {
   try {
     const employee = await Employee.findById(req.params.id);

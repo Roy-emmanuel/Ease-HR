@@ -83,7 +83,7 @@ exports.cancelLeave = async (req, res) => {
       return res.status(400).json({ message: 'Only pending leaves can be cancelled' });
     }
 
-    // ✅ Proper deletion in modern Mongoose
+    //  Proper deletion in modern Mongoose
     await leave.deleteOne();
 
     res.status(200).json({ message: 'Leave cancelled successfully' });

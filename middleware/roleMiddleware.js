@@ -11,6 +11,6 @@ module.exports = (...roles) => {
       return res.status(403).json({ message: 'Access denied' });
     }
 
-    return next(); // 🔑 explicit return
+    return next(); //  explicit return
   };
 };

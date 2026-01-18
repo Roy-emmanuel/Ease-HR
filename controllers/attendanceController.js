@@ -6,9 +6,9 @@ const getTodayDate = () => {
   return new Date().toISOString().split('T')[0];
 };
 
-/**
- * CLOCK IN
- */
+
+  // CLOCK IN
+ 
 exports.clockIn = async (req, res) => {
   try {
     const employee = await Employee.findOne({ user: req.user.id });
@@ -17,7 +17,7 @@ exports.clockIn = async (req, res) => {
       return res.status(404).json({ message: 'Employee profile not found' });
     }
 
-    // ✅ Sprint 5 requirement: validate shift assignment
+    // Sprint 5 requirement: validate shift assignment
     if (!employee.shift) {
       return res.status(400).json({
         message: 'No shift assigned to employee'
@@ -53,9 +53,9 @@ exports.clockIn = async (req, res) => {
   }
 };
 
-/**
- * CLOCK OUT
- */
+
+//  CLOCK OUT
+
 exports.clockOut = async (req, res) => {
   try {
     const employee = await Employee.findOne({ user: req.user.id });
