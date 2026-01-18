@@ -53,7 +53,7 @@
 
 
 
-const Shift = require('../models/Shift');
+const Shift = require('../models/shift');
 const Employee = require('../models/Employee');
 
 // Create shift (Manager)

@@ -64,8 +64,8 @@ app.use(express.json());
 
 // CORS setup
 const allowedOrigins = [
-  'https://victoryemeh.github.io', // your deployed frontend
-  'http://localhost:3000',         // local frontend for testing
+  'https://victoryemeh.github.io', 
+  'http://localhost:3000',         
 ];
 
 app.use(cors({
