@@ -9,11 +9,11 @@ const seedUsers = async () => {
   try {
     await connectDB();
 
-    // Clear existing users (optional)
+    // Clear existing users (optional, be careful if you have real data)
     await User.deleteMany({});
     await Employee.deleteMany({});
 
-    // Manager
+    // Create Manager
     const managerPassword = await bcrypt.hash('manager123', 10);
     await User.create({
       name: 'John Manager',
@@ -22,7 +22,7 @@ const seedUsers = async () => {
       role: 'manager'
     });
 
-    // Employee
+    // Create Employee user
     const employeePassword = await bcrypt.hash('employee123', 10);
     const employeeUser = await User.create({
       name: 'Jane Employee',
@@ -31,15 +31,18 @@ const seedUsers = async () => {
       role: 'employee'
     });
 
+    // Create Employee profile linked to User
     await Employee.create({
       user: employeeUser._id,
-      name: employeeUser.name
+      name: employeeUser.name,
+      department: 'Not Assigned',  // default value
+      position: 'Not Assigned'     // default value
     });
 
     console.log('Seed users created successfully!');
     process.exit();
   } catch (err) {
-    console.error(err);
+    console.error('Error seeding users:', err);
     process.exit(1);
   }
 };
