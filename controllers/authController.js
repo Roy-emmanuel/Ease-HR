@@ -124,7 +124,9 @@ exports.register = async (req, res) => {
     if (role.toLowerCase() === 'employee') {
       await Employee.create({
         user: user._id,
-        name: user.name
+        name: user.name,
+        department: 'Not Assigned',
+        position: 'Not Assigned'
       });
     }
 
