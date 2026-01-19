@@ -1,57 +1,3 @@
-// require('dotenv').config();
-// const express = require('express');
-// const connectDB = require('./config/db');
-// const cors = require('cors');
-
-// const app = express();
-// app.use(express.json());
-
-// const allowedOrigins = [
-//   'https://victoryemeh.github.io',
-// ];
-
-// app.use(
-//   cors({
-//     origin: (origin, callback) => {
-//       if (!origin) return callback(null, true);
-
-//       if (origin.startsWith('http://localhost')) {
-//         return callback(null, true);
-//       }
-
-//       if (allowedOrigins.includes(origin)) {
-//         return callback(null, true);
-//       }
-
-//       return callback(new Error('Not allowed by CORS'));
-//     },
-//     credentials: true,
-//   })
-// );
-
-// // Connect to MongoDB
-// connectDB();
-
-// // Health check
-// app.get('/', (req, res) => {
-//   res.send('API is running');
-// });
-
-// // Routes
-// app.use('/api/auth', require('./routes/authRoutes'));
-// app.use('/api/leaves', require('./routes/leaveRoutes'));
-// app.use('/api/employees', require('./routes/employeeRoutes'));
-// app.use('/api/attendance', require('./routes/attendanceRoutes'));
-// app.use('/api/shifts', require('./routes/shiftRoutes'));
-
-// const PORT = process.env.PORT || 5000;
-// app.listen(PORT, () => {
-//   console.log(`Server running on port ${PORT}`);
-// });
-
-
-
-
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
@@ -59,12 +5,12 @@ const cors = require('cors');
 
 const app = express();
 
-//  Parse JSON bodies
+// Parse JSON bodies
 app.use(express.json());
 
-//  CORS setup
+// CORS setup
 const allowedOrigins = [
-  'https://victoryemeh.github.io', // your live frontend
+  'https://victoryemeh.github.io', // live frontend
   'http://localhost:3000',         // local frontend
 ];
 
@@ -80,11 +26,10 @@ app.use(cors({
   credentials: true, // allows cookies and Authorization headers
 }));
 
-//  MongoDB connection
+// MongoDB connection
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI, {
-    });
+    await mongoose.connect(process.env.MONGO_URI);
     console.log('MongoDB connected successfully');
   } catch (err) {
     console.error('MongoDB connection failed:', err.message);
@@ -93,10 +38,10 @@ const connectDB = async () => {
 };
 connectDB();
 
-//  Health check
+// Health check
 app.get('/', (req, res) => res.send('API is running'));
 
-//  Routes
+// Routes
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/employees', require('./routes/employeeRoutes'));
 app.use('/api/leaves', require('./routes/leaveRoutes'));
@@ -109,6 +54,6 @@ app.use((err, req, res, next) => {
   res.status(500).json({ message: 'Server error', error: err.message });
 });
 
-//  Start server
+// Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
