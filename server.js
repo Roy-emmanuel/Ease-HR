@@ -59,30 +59,34 @@ const cors = require('cors');
 
 const app = express();
 
-// Parse JSON bodies
+//  Parse JSON bodies
 app.use(express.json());
 
-// CORS setup
+//  CORS setup
 const allowedOrigins = [
-  'https://victoryemeh.github.io', 
-  'http://localhost:3000',         
+  'https://victoryemeh.github.io', // your live frontend
+  'http://localhost:3000',         // local frontend
 ];
 
 app.use(cors({
   origin: (origin, callback) => {
     // allow requests with no origin (Postman, server-to-server)
     if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('CORS not allowed from this origin'));
+      return callback(null, true);
     }
+    console.warn('Blocked CORS request from:', origin);
+    callback(new Error('CORS not allowed from this origin'));
   },
   credentials: true, // allows cookies and Authorization headers
 }));
-// MongoDB connection
+
+//  MongoDB connection
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI);
+    await mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
     console.log('MongoDB connected successfully');
   } catch (err) {
     console.error('MongoDB connection failed:', err.message);
@@ -91,13 +95,11 @@ const connectDB = async () => {
 };
 connectDB();
 
-// Health check route
-app.get('/', (req, res) => {
-  res.send('API is running');
-});
+//  Health check
+app.get('/', (req, res) => res.send('API is running'));
 
-// Routes
-app.use('/api/auth', require('./routes/authRoutes'));           
+//  Routes
+app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/employees', require('./routes/employeeRoutes'));
 app.use('/api/leaves', require('./routes/leaveRoutes'));
 app.use('/api/attendance', require('./routes/attendanceRoutes'));
@@ -109,8 +111,6 @@ app.use((err, req, res, next) => {
   res.status(500).json({ message: 'Server error', error: err.message });
 });
 
-// Start server
+//  Start server
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
