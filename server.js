@@ -14,16 +14,21 @@ const allowedOrigins = [
   'http://localhost:3000',         // local frontend
 ];
 
+// CORS middleware
 app.use(cors({
   origin: (origin, callback) => {
-    // allow requests with no origin (Postman, server-to-server)
-    if (!origin || allowedOrigins.includes(origin)) {
+    // allow requests with no origin (Postman, mobile apps, server-to-server)
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(origin)) {
       return callback(null, true);
+    } else {
+      console.warn('Blocked CORS request from:', origin);
+      // Instead of throwing, just fail gracefully
+      return callback(null, false);
     }
-    console.warn('Blocked CORS request from:', origin);
-    callback(new Error('CORS not allowed from this origin'));
   },
-  credentials: true, // allows cookies and Authorization headers
+  credentials: true,
 }));
 
 // MongoDB connection
@@ -33,7 +38,7 @@ const connectDB = async () => {
     console.log('MongoDB connected successfully');
   } catch (err) {
     console.error('MongoDB connection failed:', err.message);
-    process.exit(1); // stop server if DB fails
+    process.exit(1);
   }
 };
 connectDB();
