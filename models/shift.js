@@ -14,7 +14,7 @@ const shiftSchema = new mongoose.Schema(
     },
 
     endTime: {
-      type: String, // e.g. "17:00"
+      type: String,
       required: true
     }
   },

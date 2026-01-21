@@ -91,9 +91,9 @@ exports.clockOut = async (req, res) => {
   }
 };
 
-/**
- * ATTENDANCE HISTORY
- */
+
+  //  ATTENDANCE HISTORY
+ 
 exports.getAttendanceHistory = async (req, res) => {
   try {
     const employee = await Employee.findOne({ user: req.user.id });

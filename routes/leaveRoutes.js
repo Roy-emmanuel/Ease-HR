@@ -6,7 +6,7 @@ const {
   updateLeaveStatus,
   getLeaveHistory,
   getAllLeaves,
-  cancelLeave   // we'll add this
+  cancelLeave   
 } = require('../controllers/leaveController');
 
 const router = express.Router();
