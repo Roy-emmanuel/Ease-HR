@@ -8,7 +8,6 @@ const getTodayDate = () => {
 
 
   // CLOCK IN
- 
 exports.clockIn = async (req, res) => {
   try {
     const employee = await Employee.findOne({ user: req.user.id });
@@ -55,7 +54,6 @@ exports.clockIn = async (req, res) => {
 
 
 //  CLOCK OUT
-
 exports.clockOut = async (req, res) => {
   try {
     const employee = await Employee.findOne({ user: req.user.id });
@@ -93,7 +91,6 @@ exports.clockOut = async (req, res) => {
 
 
   //  ATTENDANCE HISTORY
- 
 exports.getAttendanceHistory = async (req, res) => {
   try {
     const employee = await Employee.findOne({ user: req.user.id });
